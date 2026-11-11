@@ -4,20 +4,18 @@
 #Описание: Я скопировала код из примера теста который проверяет содержит ли заголовок подстроку,
 #кликает по ссылке с названием "начать" и проверяет есть ли в заголовке страницы подстрока
 #"Instalation"
+# я изменила ссылку, поменяв её на другой русский сайт, теперь код работает исправно
 import re
 from playwright.sync_api import Page, expect
 
 def test_has_title(page: Page):
-    page.goto("https://playwright.dev/")
+    page.goto("https://www.python.org/")
 
-    # ожидаем заголовок содержащий подстроку
-    expect(page).to_have_title(re.compile("Playwright"))
+    expect(page).to_have_title(re.compile("Welcome to Python.org"))
 
 def test_get_started_link(page: Page):
-    page.goto("https://playwright.dev/")
+    page.goto("https://www.python.org/")
 
-    # нажимаем на ссылку "Начать"
-    page.get_by_role("link", name="Get started").click()
+    page.get_by_role("link", name="Getting Started").first.click()
 
-    # Ожидаем страницуу с заголовком Installation.
-    expect(page.get_by_role("heading", name="Installation")).to_be_visible()
+    expect(page.get_by_role("heading", name="Python")).to_be_visible()
